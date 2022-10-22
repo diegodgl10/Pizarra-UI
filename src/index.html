@@ -19,26 +19,46 @@
 
 <canvas class="js-paint  paint-canvas" width="600" height="300"></canvas>
 
-  <button  id="borrar" type="button"> 
+  <button id="borrar" type="button"> 
     <p>Borrar pizarra</p>
     <i class="fa-solid fa-trash"></i>
   </button>
+  
+  <label class="switch" id="lapiz-borrador">
+    <input type="checkbox">
+    <span class="slider round"></span>
+    <p>Borrador</p>
+  </label>
 
+  <!--
+  <button  id="lapiz-borrador" type="button"> 
+    <p>Borrador</p>
+    <i class="fa-solid fa-trash"></i>
+  </button>
+  -->
 </body>
 
 
 <script>
 
-  
-  
   const paintCanvas = document.querySelector( '.js-paint' );
   
   const context = paintCanvas.getContext( '2d' );
   context.lineCap = 'round';
 
+  //var checkboxLapizBorrador = document.getElementById("lapiz-borrador");
   
   const procesarClickBorrar = function (event) {
     context.clearRect(0, 0, paintCanvas.clientWidth, paintCanvas.clientHeight);
+  }
+
+  const procesarLapizBorrador = function (event) {
+    //if (checkboxLapizBorrador.checked) {
+    //  console.log("Checkeado")
+    //} else {
+    //  console.log("No checkeado")
+    //}
+    context.globalCompositeOperation="destination-out";
   }
 
   const colorPicker = document.querySelector( '.js-color-picker');
@@ -86,9 +106,13 @@
   paintCanvas.addEventListener( 'mousemove', drawLine );
   paintCanvas.addEventListener( 'mouseup', stopDrawing );
   paintCanvas.addEventListener( 'mouseout', stopDrawing );
+  
+  
+  const borrarCanvasButton = document.querySelector('#borrar')
+  borrarCanvasButton.addEventListener('click', procesarClickBorrar)
 
- const borrarCanvasButton = document.querySelector('#borrar')
- borrarCanvasButton.addEventListener('click', procesarClickBorrar)
+  borrarLapizButton = document.querySelector('#lapiz-borrador')
+  borrarLapizButton.addEventListener('click', procesarLapizBorrador)
 
 </script>
 </html>
