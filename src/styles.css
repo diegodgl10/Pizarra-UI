@@ -13,18 +13,18 @@ button{
   cursor: pointer;
 }
 
-#borrar{
+#borrar-todo{
   display: flex;
   align-items:center;
   justify-content: center;
   gap:5px;
 }
 
-#borrar i{
+#borrar-todo i{
   color:rgb(219, 81, 81);
 }
 
-#borrar:hover{
+#borrar-todo:hover{
   cursor: pointer;
 }
 

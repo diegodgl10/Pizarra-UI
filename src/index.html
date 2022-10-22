@@ -20,7 +20,7 @@
 <canvas class="js-paint  paint-canvas" width="600" height="300"></canvas>
 
   <div class="btn-group">
-    <button id="borrar" type="button"> 
+    <button id="borrar-todo" type="button"> 
       <p>Borrar pizarra</p>
       <i class="fa-solid fa-trash"></i>
     </button>
@@ -105,7 +105,7 @@
   paintCanvas.addEventListener( 'mouseout', stopDrawing );
   
   
-  const borrarCanvasButton = document.querySelector('#borrar')
+  const borrarCanvasButton = document.querySelector('#borrar-todo')
   borrarCanvasButton.addEventListener('click', procesarClickBorrar)
 
   const borrarLapizButton = document.querySelector('#lapiz-borrador')
