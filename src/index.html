@@ -1,0 +1,94 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/7e82edf099.js" crossorigin="anonymous"></script>
+  <title>Prueba de Canvas</title>
+  <link href="./styles.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <input type="color"  class="js-color-picker  color-picker">
+
+  <section>
+    <input type="range" class="js-line-range" min="1" max="72" value="1">
+    <label class="js-range-value">1</label>Px
+  </section>
+
+<canvas class="js-paint  paint-canvas" width="600" height="300"></canvas>
+
+  <button  id="borrar" type="button"> 
+    <p>Borrar pizarra</p>
+    <i class="fa-solid fa-trash"></i>
+  </button>
+
+</body>
+
+
+<script>
+
+  
+  
+  const paintCanvas = document.querySelector( '.js-paint' );
+  
+  const context = paintCanvas.getContext( '2d' );
+  context.lineCap = 'round';
+
+  
+  const procesarClickBorrar = function (event) {
+    context.clearRect(0, 0, paintCanvas.clientWidth, paintCanvas.clientHeight);
+  }
+
+  const colorPicker = document.querySelector( '.js-color-picker');
+
+  const colorListener = function (event) {
+    context.strokeStyle = event.target.value;
+    console.log(event.target) // <input type="color"  class="js-color-picker  color-picker">
+  }
+
+  colorPicker.addEventListener( 'change', colorListener);
+
+  const lineWidthRange = document.querySelector( '.js-line-range' );
+  const lineWidthLabel = document.querySelector( '.js-range-value' );
+
+
+  lineWidthRange.addEventListener( 'input', event => {
+      const width = event.target.value;
+      lineWidthLabel.innerHTML = width;
+      context.lineWidth = width;
+  } );
+
+  let x = 0, y = 0;
+  let isMouseDown = false;
+
+  const stopDrawing = () => { isMouseDown = false; }
+  const startDrawing = event => {
+      isMouseDown = true;   
+     [x, y] = [event.offsetX, event.offsetY];  
+  }
+  const drawLine = event => {
+      if ( isMouseDown ) {
+          const newX = event.offsetX;
+          const newY = event.offsetY;
+          context.beginPath();
+          context.moveTo( x, y );
+          context.lineTo( newX, newY );
+          context.stroke();
+          //[x, y] = [newX, newY];
+          x = newX;
+          y = newY;
+      }
+  }
+
+  paintCanvas.addEventListener( 'mousedown', startDrawing );
+  paintCanvas.addEventListener( 'mousemove', drawLine );
+  paintCanvas.addEventListener( 'mouseup', stopDrawing );
+  paintCanvas.addEventListener( 'mouseout', stopDrawing );
+
+ const borrarCanvasButton = document.querySelector('#borrar')
+ borrarCanvasButton.addEventListener('click', procesarClickBorrar)
+
+</script>
+</html>

@@ -1,0 +1,29 @@
+.paint-canvas {
+  border: 1px black solid;
+  display: block;
+  margin: 1rem;
+}
+
+.color-picker {
+  margin: 1rem 1rem 0 1rem;
+}
+
+button{
+  all: unset;
+  cursor: pointer;
+}
+
+#borrar{
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  gap:5px;
+}
+
+#borrar i{
+  color:rgb(219, 81, 81);
+}
+
+#borrar:hover{
+  cursor: pointer;
+}
