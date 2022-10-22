@@ -27,3 +27,33 @@ button{
 #borrar:hover{
   cursor: pointer;
 }
+
+#lapiz-escribir{
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  gap:5px;
+}
+
+#lapiz-escribir i{
+  color:rgb(81, 219, 111);
+}
+
+#lapiz-escribir:hover{
+  cursor: pointer;
+}
+
+#lapiz-borrador{
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  gap:5px;
+}
+
+#lapiz-borrador i{
+  color:rgb(81, 106, 219);
+}
+
+#lapiz-borrador:hover{
+  cursor: pointer;
+}

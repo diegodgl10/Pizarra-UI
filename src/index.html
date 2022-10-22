@@ -19,23 +19,23 @@
 
 <canvas class="js-paint  paint-canvas" width="600" height="300"></canvas>
 
-  <button id="borrar" type="button"> 
-    <p>Borrar pizarra</p>
-    <i class="fa-solid fa-trash"></i>
-  </button>
-  
-  <label class="switch" id="lapiz-borrador">
-    <input type="checkbox">
-    <span class="slider round"></span>
-    <p>Borrador</p>
-  </label>
+  <div class="btn-group">
+    <button id="borrar" type="button"> 
+      <p>Borrar pizarra</p>
+      <i class="fa-solid fa-trash"></i>
+    </button>
 
-  <!--
-  <button  id="lapiz-borrador" type="button"> 
-    <p>Borrador</p>
-    <i class="fa-solid fa-trash"></i>
-  </button>
-  -->
+    <button id="lapiz-escribir" type="button"> 
+      <p>Lapiz</p>
+      <i class="fas fa-pencil-alt"></i>
+    </button>
+
+    <button id="lapiz-borrador" type="button"> 
+      <p>Borrador</p>
+      <i class="fa fa-eraser"></i>
+    </button>
+
+  </div> 
 </body>
 
 
@@ -45,20 +45,17 @@
   
   const context = paintCanvas.getContext( '2d' );
   context.lineCap = 'round';
-
-  //var checkboxLapizBorrador = document.getElementById("lapiz-borrador");
   
   const procesarClickBorrar = function (event) {
     context.clearRect(0, 0, paintCanvas.clientWidth, paintCanvas.clientHeight);
   }
 
   const procesarLapizBorrador = function (event) {
-    //if (checkboxLapizBorrador.checked) {
-    //  console.log("Checkeado")
-    //} else {
-    //  console.log("No checkeado")
-    //}
     context.globalCompositeOperation="destination-out";
+  }
+
+  const procesarLapiz = function (event) {
+    context.globalCompositeOperation="source-over";
   }
 
   const colorPicker = document.querySelector( '.js-color-picker');
@@ -111,8 +108,11 @@
   const borrarCanvasButton = document.querySelector('#borrar')
   borrarCanvasButton.addEventListener('click', procesarClickBorrar)
 
-  borrarLapizButton = document.querySelector('#lapiz-borrador')
+  const borrarLapizButton = document.querySelector('#lapiz-borrador')
   borrarLapizButton.addEventListener('click', procesarLapizBorrador)
+
+  const lapizButton = document.querySelector('#lapiz-escribir')
+  lapizButton.addEventListener('click', procesarLapiz)
 
 </script>
 </html>

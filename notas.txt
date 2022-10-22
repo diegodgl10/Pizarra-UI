@@ -1,0 +1,3 @@
+https://codepen.io/mfosker/pen/ZYgoqG
+https://stackoverflow.com/questions/25907163/html5-canvas-eraser-tool-without-overdraw-white-color
+https://fontawesomeicons.com/eraser
