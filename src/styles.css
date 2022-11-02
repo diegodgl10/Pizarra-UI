@@ -4,56 +4,64 @@
   margin: 1rem;
 }
 
-.color-picker {
-  margin: 1rem 1rem 0 1rem;
+#cuadricula {
+  display: block;
+  background-color:#ffffff;
+  margin: auto;
 }
 
-button{
-  all: unset;
+/*
+.color-picker {
+  margin: 1rem 1rem 0 1rem;
+  appearance: none
+}
+*/
+
+#style-color {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
 }
 
-#borrar-todo{
+#style-color::-webkit-color-swatch {
+  border-radius: 10px;
+  border: none;
+}
+
+#style-color::-moz-color-swatch {
+  border-radius: 10px;
+  border: none;
+}
+
+.draw-tools{
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: center;
-  gap:5px;
+  gap: 15px;
+  margin: 1rem;
+}
+
+.btn {
+  /*border: 1px solid #3498db;*/
+  background: none;
+  padding: 15px 15px;
+  font-size: 100%;
+  cursor: pointer;
 }
 
 #borrar-todo i{
   color:rgb(219, 81, 81);
 }
 
-#borrar-todo:hover{
-  cursor: pointer;
-}
-
-#lapiz-escribir{
-  display: flex;
-  align-items:center;
-  justify-content: center;
-  gap:5px;
-}
-
 #lapiz-escribir i{
-  color:rgb(81, 219, 111);
-}
-
-#lapiz-escribir:hover{
-  cursor: pointer;
-}
-
-#lapiz-borrador{
-  display: flex;
-  align-items:center;
-  justify-content: center;
-  gap:5px;
+  color:rgb(59, 59, 59);
 }
 
 #lapiz-borrador i{
   color:rgb(81, 106, 219);
-}
-
-#lapiz-borrador:hover{
-  cursor: pointer;
 }

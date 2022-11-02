@@ -10,36 +10,76 @@
 </head>
 <body>
 
-  <input type="color"  class="js-color-picker  color-picker">
-
+  <!--
   <section>
-    <input type="range" class="js-line-range" min="1" max="72" value="1">
+    <input type="range" class="js-line-range" min="1" max="70" value="1">
     <label class="js-range-value">1</label>Px
-  </section>
+  </section> 
+  -->
+  
+  <div class="draw-tools">
+    <input type="range" class="js-line-range" min="1" max="70" value="4">
+    <label class="js-range-value">1</label>Px
 
-<canvas class="js-paint  paint-canvas" width="600" height="300"></canvas>
-
-  <div class="btn-group">
-    <button id="borrar-todo" type="button"> 
-      <p>Borrar pizarra</p>
-      <i class="fa-solid fa-trash"></i>
-    </button>
-
-    <button id="lapiz-escribir" type="button"> 
-      <p>Lapiz</p>
+    <input
+    type="color"
+    value="#000000"
+    class="js-color-picker color-picker"
+    id="style-color"
+    />
+      
+    <button 
+    class="btn escribir"
+    id="lapiz-escribir"
+    type="button"
+    title="Lapiz"> 
+      <!-- <p>Lapiz</p> -->
       <i class="fas fa-pencil-alt"></i>
     </button>
-
-    <button id="lapiz-borrador" type="button"> 
-      <p>Borrador</p>
+    
+    <button 
+    class="btn borrador"
+    id="lapiz-borrador"
+    type="button"
+    title="Borrador"> 
+      <!-- <p>Borrador</p> -->
       <i class="fa fa-eraser"></i>
     </button>
 
+    <button 
+    class="btn borrar_todo"
+    id="borrar-todo"
+    type="button"
+    title="Borrar toda la hoja"> 
+      <!-- <p>Borrar pizarra</p> -->
+      <i class="fa-solid fa-trash"></i>
+    </button>
   </div> 
+
+  <div class="canv">
+    <canvas class="js-paint  paint-canvas" width="600" height="300"></canvas>
+    <!-- <canvas id="js" class="js-paint  paint-canvas" width="600" height="300"></canvas> -->
+  </div>
+  <canvas id="cuadricula" width="502" height="502"></canvas>
 </body>
 
 
 <script>
+
+  // Cuadricula
+  var canvas = document.getElementById("cuadricula");
+  var contextCuadricula = canvas.getContext("2d");
+  contextCuadricula.lineWidth = 1;
+  contextCuadricula.strokeStyle = "#000000";
+  for (var x = 1; x < 502; x += 100) {
+    contextCuadricula.moveTo(x, 0);
+    contextCuadricula.lineTo(x, 502);
+  }
+  for (var y = 1; y < 502; y += 100) {
+    contextCuadricula.moveTo(0, y);
+    contextCuadricula.lineTo(502, y);
+  }
+  contextCuadricula.stroke();
 
   const paintCanvas = document.querySelector( '.js-paint' );
   
@@ -113,6 +153,5 @@
 
   const lapizButton = document.querySelector('#lapiz-escribir')
   lapizButton.addEventListener('click', procesarLapiz)
-
 </script>
 </html>
