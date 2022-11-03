@@ -57,37 +57,56 @@
   <!-- Pizarra -->
   <div class="canv">
     <!-- Pizara base -->
-    <canvas class="js-paint  paint-canvas" width="600" height="300"></canvas>
+    <canvas id="base" class="js-paint paint-canvas" width="600" height="300"></canvas>
+    <!-- Pizarra grid -->
+    <canvas id="grid" class="js-paint paint-canvas" width="600" height="300"></canvas>
   </div>
 </body>
 
-
+<script src="script.js"></script>
+<!--
 <script>
 
+  // Pizarra base
   const paintCanvas = document.querySelector( '.js-paint' );
   
-  const context = paintCanvas.getContext( '2d' );
-  context.lineCap = 'round';
+  const ctxPen = paintCanvas.getContext( '2d' );
+  ctxPen.lineCap = 'round';
+
+  // Pizarra grid
+  var canvaGrid = document.getElementById("grid");
+  var ctxGrid = canvaGrid.getContext("2d");
+  for (var i = 5; i < 595; i=i+6) {
+    // lineas verticales
+    ctxGrid.moveTo(i,5);
+    ctxGrid.lineTo(i,595);
+    // lineas horizontales
+    ctxGrid.moveTo(5,i);
+    ctxGrid.lineTo(595,i);
+    // color lineas
+    ctxGrid.strokeStyle="#e1e1e1";
+    ctxGrid.stroke();
+  }
 
   // Accion lapiz
   const procesarLapiz = function (event) {
-    context.globalCompositeOperation="source-over";
+    ctxPen.globalCompositeOperation="source-over";
   }
 
   // Accion borrador
   const procesarLapizBorrador = function (event) {
-    context.globalCompositeOperation="destination-out";
+    ctxPen.globalCompositeOperation="destination-out";
   }
 
   // Accion Limpiar pizarra
   const procesarClickBorrar = function (event) {
-    context.clearRect(0, 0, paintCanvas.clientWidth, paintCanvas.clientHeight);
+    ctxPen.clearRect(0, 0, paintCanvas.clientWidth, paintCanvas.clientHeight);
   }
 
   const colorPicker = document.querySelector( '.js-color-picker');
 
   const colorListener = function (event) {
-    context.strokeStyle = event.target.value;
+    ctxPen.strokeStyle = event.target.value;
     console.log(event.target) // <input type="color"  class="js-color-picker  color-picker">
   }
 
@@ -100,7 +119,7 @@
   lineWidthRange.addEventListener( 'input', event => {
       const width = event.target.value;
       lineWidthLabel.innerHTML = width;
-      context.lineWidth = width;
+      ctxPen.lineWidth = width;
   } );
 
   let x = 0, y = 0;
@@ -115,10 +134,10 @@
       if ( isMouseDown ) {
           const newX = event.offsetX;
           const newY = event.offsetY;
-          context.beginPath();
-          context.moveTo( x, y );
-          context.lineTo( newX, newY );
-          context.stroke();
+          ctxPen.beginPath();
+          ctxPen.moveTo( x, y );
+          ctxPen.lineTo( newX, newY );
+          ctxPen.stroke();
           //[x, y] = [newX, newY];
           x = newX;
           y = newY;
@@ -143,4 +162,5 @@
   const borrarCanvasButton = document.querySelector('#borrar-todo')
   borrarCanvasButton.addEventListener('click', procesarClickBorrar)
 </script>
+-->
 </html>
