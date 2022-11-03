@@ -1,6 +1,18 @@
+/*
 // Pizarra base
 const paintCanvas = document.querySelector( '.js-paint' );
+*/
+const paintCanvas = document.querySelector( '.js-paint' );
   
+const contexto = paintCanvas.getContext( '2d' );
+contexto.lineCap = 'round';
+
+const canvaPintar = document.querySelector( '#pintar' );
+const ctxCanvaPintar = canvaPintar.getContext( '2d' );
+ctxCanvaPintar.lineCap = 'round';
+ctxCanvaPintar.globalCompositeOperation = 'destination-atop';
+
+// Contexto de lapiz
 const ctxPen = paintCanvas.getContext( '2d' );
 ctxPen.lineCap = 'round';
 
