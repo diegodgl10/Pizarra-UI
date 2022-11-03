@@ -9,34 +9,31 @@
   <link href="./styles.css" rel="stylesheet"/>
 </head>
 <body>
-
-  <!--
-  <section>
-    <input type="range" class="js-line-range" min="1" max="70" value="1">
-    <label class="js-range-value">1</label>Px
-  </section> 
-  -->
-  
+  <!-- Barra de herramientas -->
   <div class="draw-tools">
+    <!-- Tamanio de lapiz -->
     <input type="range" class="js-line-range" min="1" max="70" value="4">
     <label class="js-range-value">1</label>Px
 
+    <!-- Selector de color -->
     <input
     type="color"
     value="#000000"
     class="js-color-picker color-picker"
     id="style-color"
     />
-      
+
+    <!-- Boton dibujar -->
     <button 
-    class="btn escribir"
-    id="lapiz-escribir"
+    class="btn dibujar"
+    id="lapiz-dibujar"
     type="button"
     title="Lapiz"> 
       <!-- <p>Lapiz</p> -->
       <i class="fas fa-pencil-alt"></i>
     </button>
-    
+
+    <!-- Boton de borrador -->
     <button 
     class="btn borrador"
     id="lapiz-borrador"
@@ -46,6 +43,7 @@
       <i class="fa fa-eraser"></i>
     </button>
 
+    <!-- Boton limpiar pizara -->
     <button 
     class="btn borrar_todo"
     id="borrar-todo"
@@ -56,46 +54,34 @@
     </button>
   </div> 
 
+  <!-- Pizarra -->
   <div class="canv">
+    <!-- Pizara base -->
     <canvas class="js-paint  paint-canvas" width="600" height="300"></canvas>
-    <!-- <canvas id="js" class="js-paint  paint-canvas" width="600" height="300"></canvas> -->
   </div>
-  <canvas id="cuadricula" width="502" height="502"></canvas>
 </body>
 
 
 <script>
 
-  // Cuadricula
-  var canvas = document.getElementById("cuadricula");
-  var contextCuadricula = canvas.getContext("2d");
-  contextCuadricula.lineWidth = 1;
-  contextCuadricula.strokeStyle = "#000000";
-  for (var x = 1; x < 502; x += 100) {
-    contextCuadricula.moveTo(x, 0);
-    contextCuadricula.lineTo(x, 502);
-  }
-  for (var y = 1; y < 502; y += 100) {
-    contextCuadricula.moveTo(0, y);
-    contextCuadricula.lineTo(502, y);
-  }
-  contextCuadricula.stroke();
-
   const paintCanvas = document.querySelector( '.js-paint' );
   
   const context = paintCanvas.getContext( '2d' );
   context.lineCap = 'round';
-  
-  const procesarClickBorrar = function (event) {
-    context.clearRect(0, 0, paintCanvas.clientWidth, paintCanvas.clientHeight);
+
+  // Accion lapiz
+  const procesarLapiz = function (event) {
+    context.globalCompositeOperation="source-over";
   }
 
+  // Accion borrador
   const procesarLapizBorrador = function (event) {
     context.globalCompositeOperation="destination-out";
   }
 
-  const procesarLapiz = function (event) {
-    context.globalCompositeOperation="source-over";
+  // Accion Limpiar pizarra
+  const procesarClickBorrar = function (event) {
+    context.clearRect(0, 0, paintCanvas.clientWidth, paintCanvas.clientHeight);
   }
 
   const colorPicker = document.querySelector( '.js-color-picker');
@@ -139,19 +125,22 @@
       }
   }
 
+  // Movimientos
   paintCanvas.addEventListener( 'mousedown', startDrawing );
   paintCanvas.addEventListener( 'mousemove', drawLine );
   paintCanvas.addEventListener( 'mouseup', stopDrawing );
   paintCanvas.addEventListener( 'mouseout', stopDrawing );
-  
-  
-  const borrarCanvasButton = document.querySelector('#borrar-todo')
-  borrarCanvasButton.addEventListener('click', procesarClickBorrar)
 
+  // Accionar Lapiz de dibujo
+  const lapizButton = document.querySelector('#lapiz-dibujar')
+  lapizButton.addEventListener('click', procesarLapiz)
+
+  // Accionar Borrador
   const borrarLapizButton = document.querySelector('#lapiz-borrador')
   borrarLapizButton.addEventListener('click', procesarLapizBorrador)
-
-  const lapizButton = document.querySelector('#lapiz-escribir')
-  lapizButton.addEventListener('click', procesarLapiz)
+  
+  // Accionar Borrado de pizarra
+  const borrarCanvasButton = document.querySelector('#borrar-todo')
+  borrarCanvasButton.addEventListener('click', procesarClickBorrar)
 </script>
 </html>
