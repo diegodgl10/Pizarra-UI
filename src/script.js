@@ -1,68 +1,66 @@
-/*
 // Pizarra base
 const paintCanvas = document.querySelector( '.js-paint' );
-*/
-const paintCanvas = document.querySelector( '.js-paint' );
-  
-const contexto = paintCanvas.getContext( '2d' );
-contexto.lineCap = 'round';
-
-const canvaPintar = document.querySelector( '#pintar' );
-const ctxCanvaPintar = canvaPintar.getContext( '2d' );
-ctxCanvaPintar.lineCap = 'round';
-ctxCanvaPintar.globalCompositeOperation = 'destination-atop';
-
-// Contexto de lapiz
-const ctxPen = paintCanvas.getContext( '2d' );
-ctxPen.lineCap = 'round';
 
 // Pizarra grid
+/*
 var canvaGrid = document.getElementById("grid");
-var ctxGrid = canvaGrid.getContext("2d");
+var contextoGrid = canvaGrid.getContext("2d");
 for (var i = 5; i < 595; i=i+6) {
   // lineas verticales
-  ctxGrid.moveTo(i,5);
-  ctxGrid.lineTo(i,595);
+  contextoGrid.moveTo(i,5);
+  contextoGrid.lineTo(i,595);
   // lineas horizontales
-  ctxGrid.moveTo(5,i);
-  ctxGrid.lineTo(595,i);
+  contextoGrid.moveTo(5,i);
+  contextoGrid.lineTo(595,i);
   // color lineas
-  ctxGrid.strokeStyle="#e1e1e1";
-  ctxGrid.stroke();
+  contextoGrid.strokeStyle="#e1e1e1";
+  contextoGrid.stroke();
 }
+*/
+
+const botonesTools = document.querySelector('.botones');
+
+// Contexto de canva
+const ctxCanva = paintCanvas.getContext( '2d' );
+ctxCanva.lineCap = 'round';
+
+ctxCanva.globalCompositeOperation = 'destination-atop';
+window.addEventListener('resize', () => {
+  paintCanvas.width = window.innerWidth;
+  paintCanvas.height = window.innerHeight;
+  ctxCanva.lineCap = 'round';
+})
 
 // Accion lapiz
 const procesarLapiz = function (event) {
-  ctxPen.globalCompositeOperation="source-over";
+  ctxCanva.globalCompositeOperation="source-over";
 }
 
 // Accion borrador
 const procesarLapizBorrador = function (event) {
-  ctxPen.globalCompositeOperation="destination-out";
+  ctxCanva.globalCompositeOperation="destination-out";
 }
 
 // Accion Limpiar pizarra
 const procesarClickBorrar = function (event) {
-  ctxPen.clearRect(0, 0, paintCanvas.clientWidth, paintCanvas.clientHeight);
+  ctxCanva.clearRect(0, 0, paintCanvas.clientWidth, paintCanvas.clientHeight);
 }
 
+// Selector de color
 const colorPicker = document.querySelector( '.js-color-picker');
-
 const colorListener = function (event) {
-  ctxPen.strokeStyle = event.target.value;
-  console.log(event.target) // <input type="color"  class="js-color-picker  color-picker">
+  ctxCanva.strokeStyle = event.target.value;
+  console.log(event.target)
 }
-
 colorPicker.addEventListener( 'change', colorListener);
 
+// Tamanio de lapiz
 const lineWidthRange = document.querySelector( '.js-line-range' );
 const lineWidthLabel = document.querySelector( '.js-range-value' );
-
-
 lineWidthRange.addEventListener( 'input', event => {
     const width = event.target.value;
     lineWidthLabel.innerHTML = width;
-    ctxPen.lineWidth = width;
+    ctxCanva.lineWidth = width;
 } );
 
 let x = 0, y = 0;
@@ -77,10 +75,10 @@ const drawLine = event => {
     if ( isMouseDown ) {
         const newX = event.offsetX;
         const newY = event.offsetY;
-        ctxPen.beginPath();
-        ctxPen.moveTo( x, y );
-        ctxPen.lineTo( newX, newY );
-        ctxPen.stroke();
+        ctxCanva.beginPath();
+        ctxCanva.moveTo( x, y );
+        ctxCanva.lineTo( newX, newY );
+        ctxCanva.stroke();
         //[x, y] = [newX, newY];
         x = newX;
         y = newY;
@@ -93,14 +91,14 @@ paintCanvas.addEventListener( 'mousemove', drawLine );
 paintCanvas.addEventListener( 'mouseup', stopDrawing );
 paintCanvas.addEventListener( 'mouseout', stopDrawing );
 
-// Accionar Lapiz de dibujo
+// Boton Lapiz de dibujo
 const lapizButton = document.querySelector('#lapiz-dibujar')
 lapizButton.addEventListener('click', procesarLapiz)
 
-// Accionar Borrador
+// Boton Borrador
 const borrarLapizButton = document.querySelector('#lapiz-borrador')
 borrarLapizButton.addEventListener('click', procesarLapizBorrador)
-  
-// Accionar Borrado de pizarra
+
+// Boton Borrado de pizarra
 const borrarCanvasButton = document.querySelector('#borrar-todo')
 borrarCanvasButton.addEventListener('click', procesarClickBorrar)
